@@ -2,26 +2,27 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from math import *
-
 number_of_iteration = 100000
 
-def monte_carlo(function, square) :
+
+def monte_carlo(function, start, end):
     x = []
     y = []
     under_function = 0
     for number in range(1 + number_of_iteration):
-        rand_x = random.random() * 1
+        rand_x = random.random() * start
         rand_y = random.random() * function(1)
         x.append(rand_x)
         y.append(rand_y)
-        if y[number] <= function(x):
-            under_function +=1
-    return (under_function / number_of_iteration) / square
+        if y[number] <= function(x[number]):
+            under_function += 1
+    return (under_function / number_of_iteration) * (start * end)
 
 
 def first_function(x):
-    return pow(x, 7) + pow(x, 5) + pow(x, 3)
-First = monte_carlo(first_function, first_function(1))
+    return float(pow(x, 7) + pow(x, 5) + pow(x, 3))
+
+First = monte_carlo(first_function, 1, first_function(1))
 print('Function (x^7 + x^5 + x^3)dx from 0 to 1')
 print('Integral 1 = ', First)
 
